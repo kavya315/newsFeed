@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -69,9 +70,19 @@ public class MainActivity extends FragmentActivity
           //      .replace(R.id.container, PlaceholderFragment.newInstance(position+1))
             //    .commit();
 
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
 
         positionCurrent = position;
         switch (position) {
+
+            case 0:
+
+                CardFragment fragment = new CardFragment();
+                fragmentTransaction.replace(R.id.container, fragment).commit();
+
 
 
 
@@ -91,9 +102,9 @@ public class MainActivity extends FragmentActivity
                 break;*/
 
 
-                Intent intent1 = new Intent(this, CardsActivity.class);
+               // Intent intent1 = new Intent(this, CardsActivity.class);
                 //intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent1);
+              //  startActivity(intent1);
                 Log.d("position", Integer.toString(position));
                 break;
 

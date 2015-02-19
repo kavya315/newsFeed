@@ -1,12 +1,21 @@
 package com.example.arkitvora.materialui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -23,11 +32,25 @@ public class CardFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
+    public static RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    public static RecyclerView recyclerView;
+    private static ArrayList<PersonData> people;
+    private static ArrayList<PersonData> person;
+    static View.OnClickListener myOnClickListener;
+    static Button.OnClickListener buttonOnClickListener;
+    private static ArrayList<Integer> removedItems;
+    private static ArrayList<Integer> addedNewItems;
+    private static Integer totalfeeds=0;
+
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -64,32 +87,62 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_card, container, false);
+        View rootView = inflater.inflate(R.layout.activity_cards, container,
+                false);
+        myOnClickListener = new MyOnClickListener(getActivity());
+        String url = "http://192.168.1.203:3000/tweet_get";
+        // getFeedDataJson(url, "fdfd");
+        //buttonOnClickListener = new ButtonOnClickListener(this);
+
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.my_recycler_view);
+
+
+        people = new ArrayList<PersonData>();
+        for (int i = 0; i < MyData.nameArray.length; i++) {
+            people.add(new PersonData(
+                    MyData.nameArray[i],
+                    MyData.emailArray[i],
+                    MyData.drawableArray[i],
+                    MyData.id_[i],
+                    MyData.tickcount[i]
+            ));
+        }
+        person = people;
+
+       // removedItems = new ArrayList<Integer>();
+
+
+
+        return rootView;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        layoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setHasFixedSize(true);
+
+
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(layoutManager);
+
+
+
+        adapter = new MyAdapter(people);
+        recyclerView.setAdapter(adapter);
+
+        super.onViewCreated(view, savedInstanceState);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -105,5 +158,43 @@ public class CardFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+
+    private static class MyOnClickListener implements View.OnClickListener {
+
+        private final Context context;
+
+        private MyOnClickListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View v) {
+            removeItem(v);
+        }
+
+        private void removeItem(View v) {
+            Log.d("outerObject", v.toString());
+            int selectedItemPosition = recyclerView.getChildPosition(v);
+            Log.d("selectedItemPosition", Integer.toString(selectedItemPosition));
+            RecyclerView.ViewHolder viewHolder
+                    = recyclerView.findViewHolderForPosition(selectedItemPosition);
+            TextView textViewName
+                    = (TextView) viewHolder.itemView.findViewById(R.id.textViewName);
+            String selectedName = (String) textViewName.getText();
+            Log.d("selectedItemText", selectedName);
+            int selectedItemId = -1;
+            for (int i = 0; i < MyData.nameArray.length; i++) {
+                if (selectedName.equals(MyData.nameArray[i])) {
+                    selectedItemId = MyData.id_[i];
+                }
+            }
+            removedItems.add(selectedItemId);
+            people.remove(selectedItemPosition);
+            adapter.notifyItemRemoved(selectedItemPosition);
+
+        }
+    }
+
 
 }
