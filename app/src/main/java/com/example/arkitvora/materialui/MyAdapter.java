@@ -69,6 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         //Button likeButton = holder.likeButton;
 
         textViewName.setText(peopleDataSet.get(listPosition).getName());
+        Log.d("yuwgehjb",peopleDataSet.get(listPosition).getName());
         textViewEmail.setText(peopleDataSet.get(listPosition).getEmail());
         imageView.setImageResource(peopleDataSet.get(listPosition).getImage());
        // Log.d(getPackageName(), textViewLikeCount != null ? "lvCountries is not null!" : "lvCountries is null!");

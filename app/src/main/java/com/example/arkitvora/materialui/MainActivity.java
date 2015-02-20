@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class MainActivity extends FragmentActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
     public FrameLayout frameLayout;
+    //public static RecyclerView recyclerView;
+
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -81,6 +84,7 @@ public class MainActivity extends FragmentActivity
             case 0:
 
                 CardFragment fragment = new CardFragment();
+                Log.d("created","cardfrag");
                 fragmentTransaction.replace(R.id.container, fragment).commit();
 
 
@@ -239,6 +243,35 @@ public class MainActivity extends FragmentActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+    public void onClick(View v) {
+
+        Log.d("clicked.", v.toString());
+        int id=v.getId();
+        Log.d("outerObject",Integer.toString(id));
+        Log.d("parent of the card view",v.getParent().toString());
+        //Log.d("name",v.findViewById(R.id.textViewName).toString());
+        TextView textViewName= (TextView) v.findViewById(R.id.textViewName);
+        TextView textViewEmail= (TextView) v.findViewById(R.id.textViewEmail);
+
+        Log.d("the name clicked on", textViewName.getText().toString());
+        Log.d("the username.email", textViewEmail.getText().toString());
+        CardDetailsFragment frg= new CardDetailsFragment();
+        FragmentManager fragmentManager1 = getFragmentManager();
+        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+        fragmentTransaction1.replace(R.id.container, frg).commit();
+        //frg.setValues(textViewName.getText().toString(), textViewEmail.getText().toString());
+           frg.nameProfile=textViewName.getText().toString();
+            frg.emailtweetProfile=textViewEmail.getText().toString();
+
+
+
+
+
+        //recyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
+        //Log.d("recyclerview",recyclerView.toString());
+
+
     }
 
 }

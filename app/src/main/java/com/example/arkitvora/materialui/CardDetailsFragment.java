@@ -21,36 +21,38 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CardFragment.OnFragmentInteractionListener} interface
+ * {@link CardDetailsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CardFragment#newInstance} factory method to
+ * Use the {@link CardDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
  */
-public class CardFragment extends Fragment   {
+
+public class CardDetailsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    //OnCardSelectionListener Listener;
 
-    public static RecyclerView.Adapter adapter;
+    public static RecyclerView.Adapter cadapter;
     private RecyclerView.LayoutManager layoutManager;
-    public static RecyclerView recyclerView;
-    private static ArrayList<PersonData> people;
-    private static ArrayList<PersonData> person;
+    public static RecyclerView recyclerViewComment;
+    private static ArrayList<CommentData> commentarray;
+    private static ArrayList<CommentData> commentarray1;
     static View.OnClickListener myOnClickListener;
     static Button.OnClickListener buttonOnClickListener;
     private static ArrayList<Integer> removedItems;
     private static ArrayList<Integer> addedNewItems;
     private static Integer totalfeeds=0;
-
-
-
+    private TextView tname;
+    private TextView emailtweet;
+    public static String nameProfile;
+    public static String emailtweetProfile;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-
+    private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -58,12 +60,12 @@ public class CardFragment extends Fragment   {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CardFragment.
+     * @return A new instance of fragment CardDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
 
-    public static CardFragment newInstance(String param1, String param2) {
-        CardFragment fragment = new CardFragment();
+    public static CardDetailsFragment newInstance(String param1, String param2) {
+        CardDetailsFragment fragment = new CardDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,9 +73,10 @@ public class CardFragment extends Fragment   {
         return fragment;
     }
 
-    public CardFragment() {
+    public CardDetailsFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,59 +91,59 @@ public class CardFragment extends Fragment   {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.activity_cards, container,
-                false);
-        myOnClickListener = new MyOnClickListener(getActivity());
+        View rootView= inflater.inflate(R.layout.fragment_card_details, container, false);
         String url = "http://192.168.1.203:3000/tweet_get";
         // getFeedDataJson(url, "fdfd");
         //buttonOnClickListener = new ButtonOnClickListener(this);
 
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.my_recycler_view);
 
+        //recycler view for the comment string:
+        recyclerViewComment = (RecyclerView)rootView.findViewById(R.id.my_recycler_view_comments);
+        tname=(TextView)rootView.findViewById(R.id.textViewName1);
+        emailtweet=(TextView)rootView.findViewById(R.id.textViewEmail1);
 
-        people = new ArrayList<PersonData>();
-        for (int i = 0; i < MyData.nameArray.length; i++) {
-            people.add(new PersonData(
-                    MyData.nameArray[i],
-                    MyData.emailArray[i],
-                    MyData.drawableArray[i],
-                    MyData.id_[i],
-                    MyData.tickcount[i]
-            ));
+        tname.setText(nameProfile);
+        emailtweet.setText(emailtweetProfile);
+        commentarray = new ArrayList<CommentData>();
+        for (int i = 0; i < CommentContentData.nameArray.length; i++) {
+            Log.d("sadsalistposition",Integer.toString(i));
+            commentarray.add(new CommentData(
+                    CommentContentData.nameArray[i],
+                    CommentContentData.commentArray[i],
+                    CommentContentData.drawableArray[i]
+                    ));
+            Log.d("ooojeikj",commentarray.toString());
         }
-        person = people;
+        commentarray1 = commentarray;
 
-       // removedItems = new ArrayList<Integer>();
+        // removedItems = new ArrayList<Integer>();
 
 
 
         return rootView;
+
     }
-
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         layoutManager = new LinearLayoutManager(getActivity());
-
-        recyclerView.setHasFixedSize(true);
-           Log.d("jshduewoeiwe","iuijhnjkn");
-
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(layoutManager);
+        Log.d("inonviewcreated","Sdd");
+        Log.d("SdeokActivity",layoutManager.toString());
+        recyclerViewComment.setHasFixedSize(true);
 
 
 
-        adapter = new MyAdapter(people);
-        recyclerView.setAdapter(adapter);
+        recyclerViewComment.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewComment.setLayoutManager(layoutManager);
+
+
+
+        cadapter = new CommentAdapter(commentarray);
+        recyclerViewComment.setAdapter(cadapter);
 
         super.onViewCreated(view, savedInstanceState);
     }
-
     // TODO: Rename method, update argument and hook method into UI event
-
-
 
 
 
@@ -159,49 +162,5 @@ public class CardFragment extends Fragment   {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-    /*public interface OnCardSelectionListener {
-        public void onArticleSelected(int position);
-    }*/
-
-
-    private static class MyOnClickListener implements View.OnClickListener {
-
-        private final Context context;
-
-        private MyOnClickListener(Context context) {
-          // context= MainActivity.;
-            this.context=context;
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            Log.d("clicknmbn nmb mnbed.","recycler");
-            removeItem(v);
-        }
-
-        private void removeItem(View v) {
-            Log.d("outerObject", v.toString());
-            int selectedItemPosition = recyclerView.getChildPosition(v);
-            Log.d("selectedItemPosition", Integer.toString(selectedItemPosition));
-            RecyclerView.ViewHolder viewHolder
-                    = recyclerView.findViewHolderForPosition(selectedItemPosition);
-            TextView textViewName
-                    = (TextView) viewHolder.itemView.findViewById(R.id.textViewName);
-            String selectedName = (String) textViewName.getText();
-            Log.d("selectedItemText", selectedName);
-            int selectedItemId = -1;
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if (selectedName.equals(MyData.nameArray[i])) {
-                    selectedItemId = MyData.id_[i];
-                }
-            }
-            removedItems.add(selectedItemId);
-            people.remove(selectedItemPosition);
-            adapter.notifyItemRemoved(selectedItemPosition);
-
-        }
-    }
-
 
 }
