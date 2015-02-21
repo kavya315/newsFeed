@@ -147,7 +147,7 @@
                     android:hint="Click to enter comments"
                     android:visibility="visible"
                     android:layout_gravity="bottom"
-                    android:background="#ffffff"
+                    android:background="@drawable/rounded_edittexts"
 
                     />
 
