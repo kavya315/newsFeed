@@ -24,6 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.facebook.LoginActivity;
+
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -104,9 +106,10 @@ public class MainActivity extends FragmentActivity
                 //}
 
                 break;*/
+              //  Intent intent1 = new Intent(this, Login_Activity.class);
 
-
-               // Intent intent1 = new Intent(this, CardsActivity.class);
+               //startActivity(intent1);
+                // Intent intent1 = new Intent(this, CardsActivity.class);
                 //intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
               //  startActivity(intent1);
                 Log.d("position", Integer.toString(position));
@@ -125,7 +128,7 @@ public class MainActivity extends FragmentActivity
                 break;*/
 
 
-                Intent intent7 = new Intent(this, ProfileActivity.class);
+                Intent intent7 = new Intent(this, Login_Activity.class);
                 //intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent7);
                 Log.d("position", Integer.toString(position));

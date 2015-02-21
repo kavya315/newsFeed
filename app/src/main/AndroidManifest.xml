@@ -32,9 +32,13 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+
+
+
+
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:name=".Login_Activity"
+            android:label="@string/title_activity_login_" >
         </activity>
     </application>
 

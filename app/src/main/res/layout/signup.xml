@@ -1,0 +1,130 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent" android:gravity="center_horizontal"
+    android:orientation="vertical"  tools:context=".LoginActivity"
+    android:id="@+id/lin_layout"
+    >
+
+    <!-- Login progress -->
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+            <android.support.v7.widget.CardView
+            android:id="@+id/cardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            card_view:cardElevation="@dimen/cardview_compat_inset_shadow"
+            card_view:cardBackgroundColor="#d4565e6e"
+            card_view:cardCornerRadius="8dp"
+                android:background="#d4565e6e"
+                android:backgroundTint="#ffaddcff"
+                style="@style/CardView.Dark">
+
+
+                    <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical" android:padding="10dp">
+
+                        <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                            <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_user"
+                            android:layout_gravity="left"
+                                android:alpha="1"/>
+
+                            <LinearLayout
+                             android:layout_width="200dp"
+                             android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <EditText android:id="@+id/firstname" android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" android:hint="First Name"
+                                    android:inputType="text" android:maxLines="1"
+                                    android:textColorHint="@color/wallet_bright_foreground_holo_light"
+
+                                    android:textColor="#000000"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:singleLine="true"  android:background="@drawable/edittext_rounded_corners"
+                                    />
+
+                                <EditText android:id="@+id/lastname" android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" android:hint="Last Name"
+                                    android:textColorHint="@color/wallet_bright_foreground_holo_light"
+
+                                    android:imeActionId="@+id/login"
+                                    android:imeActionLabel="@string/action_sign_in_short"
+                                    android:textColor="#000000"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1" android:singleLine="true" android:background="@drawable/edittext_rounded_corners"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <EditText android:id="@+id/email" android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:hint="Enter your e-mail address"
+                            android:textColorHint="@color/wallet_bright_foreground_holo_light"
+                            android:inputType="textEmailAddress" android:maxLines="1"
+                            android:textColor="#000000"
+                            android:layout_marginTop="20dp"
+                            android:singleLine="true"  android:background="@drawable/edittext_rounded_corners"
+                            android:drawableLeft="@drawable/ic_email"/>
+
+                        <EditText android:id="@+id/password" android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:hint="Enter your password"
+                            android:textColorHint="@color/wallet_bright_foreground_holo_light"
+                            android:imeActionId="@+id/login"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:textColor="#000000"
+                            android:layout_marginTop="10dp"
+
+                            android:imeOptions="actionUnspecified" android:inputType="textPassword"
+                            android:drawableLeft="@drawable/ic_lock"
+                            android:maxLines="1" android:singleLine="true" android:background="@drawable/edittext_rounded_corners"/>
+                        <EditText android:id="@+id/repeat_password" android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:hint="Re-enter your password"
+                            android:textColorHint="@color/wallet_bright_foreground_holo_light"
+
+                            android:imeActionId="@+id/login"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:textColor="#000000"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:imeOptions="actionUnspecified" android:inputType="textPassword"
+                            android:drawableLeft="@drawable/ic_lock"
+                            android:maxLines="1" android:singleLine="true" android:background="@drawable/edittext_rounded_corners"/>
+
+                        <Button android:id="@+id/email_sign_in_button"
+                            style="@style/CardView.Dark"
+                            android:layout_width="100dp" android:layout_height="40dp"
+                            android:layout_marginTop="10dp" android:text="Sign Up!"
+                            android:textColor="#000000"
+                            android:layout_marginBottom="10dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/button_rounded_corners"/>
+
+                    </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+</LinearLayout>
+
+
+
